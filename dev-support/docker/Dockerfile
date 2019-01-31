@@ -76,18 +76,14 @@ RUN apt-get -q update && apt-get -q install -y \
     zlib1g-dev
 
 #######
-# OpenJDK 8
+# OpenJDK 7 and 8
 #######
 RUN apt-get -q install -y openjdk-8-jdk
-
-#######
-# OpenJDK 9
-# w/workaround for
-# https://bugs.launchpad.net/ubuntu/+source/openjdk-9/+bug/1593191
-#######
-RUN apt-get -o Dpkg::Options::="--force-overwrite" \
-    -q install -y \
-    openjdk-9-jdk-headless
+RUN add-apt-repository ppa:openjdk-r/ppa
+RUN apt-get -q update \
+    && apt-get -q install -y --no-install-recommends openjdk-7-jdk \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 #######
 # Set default Java
