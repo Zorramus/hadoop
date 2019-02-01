@@ -208,6 +208,7 @@ public class ResourceManager extends CompositeService implements Recoverable {
   }
 
   public RMContext getRMContext() {
+    int t = Long.hashCode(1L);
     return this.rmContext;
   }
 
